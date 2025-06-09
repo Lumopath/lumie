@@ -1,22 +1,48 @@
 # Lumie - Business Metrics Dashboard
 
-A modern business metrics dashboard built with Rails API (GraphQL) and NextJS frontend.
+A modern business metrics dashboard built with Rails API (GraphQL) and NextJS frontend featuring real-time updates via Server-Sent Events (SSE).
 
 ## Project Structure
 
 ```
 lumie/
-├── api/          # Rails API with GraphQL
+├── api/          # Rails API with GraphQL & SSE streaming
 └── web/          # NextJS frontend application
 ```
 
 ## Features
 
-- **Rails API**: GraphQL-powered API with business metrics
-- **Modern Frontend**: NextJS with TypeScript, Tailwind CSS, and Apollo Client
-- **Real-time Updates**: Dashboard polls for updates every 30 seconds
+- **Rails API**: GraphQL-powered API with business metrics and SSE streaming
+- **Modern Frontend**: NextJS with TypeScript, CSS Modules, and React Query
+- **Real-time Updates**: Server-Sent Events (SSE) for instant data streaming
 - **Business KPIs**: Tracks ARR, MRR, customer metrics, growth rates, and more
-- **Responsive Design**: Beautiful, modern UI that works on all devices
+- **Responsive Design**: Beautiful, modern light-themed UI with CSS modules
+- **Type Safety**: Full TypeScript integration throughout the stack
+
+## Architecture
+
+### Real-time Data Flow
+1. **GraphQL API**: Initial data fetching via React Query
+2. **SSE Stream**: Real-time updates pushed from server at `/stream` endpoint
+3. **Cache Updates**: React Query cache automatically updated with SSE data
+4. **UI Updates**: Components re-render seamlessly with new data
+
+### Technology Stack
+
+#### Backend (Rails API)
+- Ruby on Rails 8.0 (API mode)
+- GraphQL Ruby with custom resolvers
+- SQLite3 database
+- Server-Sent Events (SSE) for real-time streaming
+- CORS configured for cross-origin requests
+
+#### Frontend (NextJS)
+- NextJS 15 with App Router
+- TypeScript for type safety
+- **CSS Modules** for component styling
+- **React Query** (@tanstack/react-query) for data fetching & caching
+- **GraphQL Request** for GraphQL client
+- Lucide React for icons
 
 ## Getting Started
 
@@ -32,7 +58,9 @@ lumie/
    ```bash
    cd api
    bundle install
-   rails db:create db:migrate db:seed
+   rails db:create db:migrate
+   # Seed sample data
+   rails runner "Metric.seed_sample_data"
    rails server -p 3001
    ```
 
@@ -46,6 +74,7 @@ lumie/
 3. **Access the Dashboard**:
    - Frontend: http://localhost:3000
    - GraphQL API: http://localhost:3001/graphql
+   - SSE Stream: http://localhost:3001/stream
 
 ## API Endpoints
 
@@ -55,7 +84,13 @@ lumie/
 - `metric(id: ID!)` - Get a specific metric
 - `metricsByCategory(category: String!)` - Get metrics by category
 
-### Example Query
+### SSE Streaming
+
+- `GET /stream` - Server-Sent Events endpoint for real-time metrics updates
+- Streams JSON data every 5 seconds with updated metrics
+- Automatically reconnects on connection loss
+
+### Example GraphQL Query
 
 ```graphql
 {
@@ -72,6 +107,30 @@ lumie/
 }
 ```
 
+### Example SSE Event
+
+```json
+{
+  "type": "metrics_update",
+  "metrics": [...],
+  "timestamp": "2024-06-09T15:30:00Z"
+}
+```
+
+## Data Management
+
+### React Query Integration
+- Queries cached with 5-minute stale time
+- Automatic background refetching
+- SSE updates bypass cache refresh
+- Error handling with retry logic
+
+### CSS Modules
+- Component-scoped styling
+- Clean, modern light theme
+- Responsive design with CSS Grid
+- Smooth hover animations and transitions
+
 ## Metrics Categories
 
 - **Revenue**: ARR, MRR
@@ -80,29 +139,14 @@ lumie/
 - **Financial**: CAC, LTV, margins
 - **Engagement**: Daily active users
 
-## Technology Stack
+## Development Features
 
-### Backend (Rails API)
-- Ruby on Rails 8.0 (API mode)
-- GraphQL Ruby
-- SQLite3 database
-- CORS enabled for frontend communication
-
-### Frontend (NextJS)
-- NextJS 15 with App Router
-- TypeScript
-- Tailwind CSS
-- Apollo Client for GraphQL
-- Lucide React for icons
-
-## Development
-
-The application includes:
-- Sample business metrics data
-- Real-time polling for updates
-- Error handling and loading states
-- Responsive design with modern UI
-- Type-safe GraphQL integration
+- **Real-time Updates**: SSE streams provide instant data updates
+- **Optimistic UI**: React Query manages loading and error states
+- **Type Safety**: Full TypeScript coverage with GraphQL codegen
+- **Modern Styling**: CSS modules with CSS custom properties
+- **Error Boundaries**: Graceful error handling throughout the application
+- **Responsive Design**: Mobile-first approach with clean, professional styling
 
 ## Sample Metrics
 
@@ -117,3 +161,12 @@ The application comes pre-seeded with realistic business metrics including:
 - Daily Active Users: 12,450
 - Gross Margin: 78.5%
 - Monthly Growth Rate: 8.3%
+
+## Recent Updates
+
+- ✅ Migrated from Apollo Client to React Query for better caching and performance
+- ✅ Replaced Tailwind CSS with CSS Modules for better component encapsulation
+- ✅ Implemented Server-Sent Events (SSE) for real-time data streaming
+- ✅ Added comprehensive CORS configuration for cross-origin requests
+- ✅ Updated to modern, clean light theme with improved accessibility
+- ✅ Enhanced error handling and loading states throughout the application
