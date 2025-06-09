@@ -1,4 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from 'graphql-request';
+import { useQuery } from '@tanstack/react-query';
+import { graphqlClient } from './client';
 
 export const GET_METRICS = gql`
   query GetMetrics {
@@ -40,3 +42,25 @@ export interface Metric {
   recordedAt: string;
   formattedValue: string;
 }
+
+// React Query hooks
+export const useMetrics = () => {
+  return useQuery({
+    queryKey: ['metrics'],
+    queryFn: async () => {
+      const data = await graphqlClient.request(GET_METRICS);
+      return data.metrics as Metric[];
+    },
+  });
+};
+
+export const useMetricsByCategory = (category: string) => {
+  return useQuery({
+    queryKey: ['metrics', 'category', category],
+    queryFn: async () => {
+      const data = await graphqlClient.request(GET_METRICS_BY_CATEGORY, { category });
+      return data.metricsByCategory as Metric[];
+    },
+    enabled: !!category,
+  });
+};

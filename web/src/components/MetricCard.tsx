@@ -8,6 +8,7 @@ import {
   BarChart3,
   Target
 } from 'lucide-react';
+import styles from './MetricCard.module.css';
 
 interface MetricCardProps {
   metric: Metric;
@@ -16,34 +17,34 @@ interface MetricCardProps {
 const getCategoryIcon = (category: string) => {
   switch (category.toLowerCase()) {
     case 'revenue':
-      return <DollarSign className="h-6 w-6" />;
+      return <DollarSign size={24} />;
     case 'customers':
-      return <Users className="h-6 w-6" />;
+      return <Users size={24} />;
     case 'growth':
-      return <TrendingUp className="h-6 w-6" />;
+      return <TrendingUp size={24} />;
     case 'engagement':
-      return <Activity className="h-6 w-6" />;
+      return <Activity size={24} />;
     case 'financial':
-      return <BarChart3 className="h-6 w-6" />;
+      return <BarChart3 size={24} />;
     default:
-      return <Target className="h-6 w-6" />;
+      return <Target size={24} />;
   }
 };
 
-const getCategoryColor = (category: string) => {
+const getCategoryClass = (category: string) => {
   switch (category.toLowerCase()) {
     case 'revenue':
-      return 'text-green-600 bg-green-100';
+      return styles.revenue;
     case 'customers':
-      return 'text-blue-600 bg-blue-100';
+      return styles.customers;
     case 'growth':
-      return 'text-purple-600 bg-purple-100';
+      return styles.growth;
     case 'engagement':
-      return 'text-orange-600 bg-orange-100';
+      return styles.engagement;
     case 'financial':
-      return 'text-indigo-600 bg-indigo-100';
+      return styles.financial;
     default:
-      return 'text-gray-600 bg-gray-100';
+      return styles.default;
   }
 };
 
@@ -58,44 +59,38 @@ const formatValue = (metric: Metric) => {
 };
 
 export default function MetricCard({ metric }: MetricCardProps) {
-  const iconColorClass = getCategoryColor(metric.category);
+  const iconClass = getCategoryClass(metric.category);
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow duration-200">
-      <div className="flex items-start justify-between">
-        <div className="flex-1">
-          <div className="flex items-center gap-3 mb-3">
-            <div className={`p-2 rounded-lg ${iconColorClass}`}>
-              {getCategoryIcon(metric.category)}
-            </div>
-            <div>
-              <h3 className="text-sm font-medium text-gray-900 leading-tight">
-                {metric.name}
-              </h3>
-              <p className="text-xs text-gray-500 capitalize mt-1">
-                {metric.category}
-              </p>
-            </div>
+    <div className={styles.card}>
+      <div className={styles.header}>
+        <div className={styles.titleSection}>
+          <div className={`${styles.iconWrapper} ${iconClass}`}>
+            {getCategoryIcon(metric.category)}
           </div>
-
-          <div className="mb-3">
-            <p className="text-2xl font-bold text-gray-900">
-              {formatValue(metric)}
-            </p>
-          </div>
-
-          {metric.description && (
-            <p className="text-sm text-gray-600 leading-relaxed">
-              {metric.description}
-            </p>
-          )}
+          <h3 className={styles.title}>
+            {metric.name}
+          </h3>
         </div>
       </div>
 
-      <div className="mt-4 pt-4 border-t border-gray-100">
-        <p className="text-xs text-gray-500">
-          Last updated: {new Date(metric.recordedAt).toLocaleDateString()}
+      <div className={styles.value}>
+        {formatValue(metric)}
+      </div>
+
+      {metric.description && (
+        <p className={styles.description}>
+          {metric.description}
         </p>
+      )}
+
+      <div className={styles.footer}>
+        <span className={styles.category}>
+          {metric.category}
+        </span>
+        <span>
+          {new Date(metric.recordedAt).toLocaleDateString()}
+        </span>
       </div>
     </div>
   );

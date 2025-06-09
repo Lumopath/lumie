@@ -1,0 +1,173 @@
+.container {
+  min-height: 100vh;
+  background-color: var(--muted);
+}
+
+.content {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .content {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .content {
+    padding: 2rem 2rem;
+  }
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.iconContainer {
+  padding: 0.5rem;
+  background-color: rgb(59, 130, 246, 0.1);
+  border-radius: 0.5rem;
+}
+
+.icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: rgb(59, 130, 246);
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0;
+}
+
+.subtitle {
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.loadingContainer {
+  min-height: 100vh;
+  background-color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loadingContent {
+  text-align: center;
+}
+
+.loadingIcon {
+  height: 2rem;
+  width: 2rem;
+  color: var(--primary);
+  margin: 0 auto 1rem;
+}
+
+.loadingText {
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+.errorContainer {
+  min-height: 100vh;
+  background-color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.errorContent {
+  text-align: center;
+  max-width: 28rem;
+}
+
+.errorIcon {
+  height: 3rem;
+  width: 3rem;
+  color: var(--destructive);
+  margin: 0 auto 1rem;
+}
+
+.errorTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+}
+
+.errorMessage {
+  color: var(--muted-foreground);
+  margin-bottom: 1rem;
+}
+
+.errorDetails {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.emptyIcon {
+  height: 3rem;
+  width: 3rem;
+  color: var(--muted-foreground);
+  margin: 0 auto 1rem;
+}
+
+.emptyTitle {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+}
+
+.emptyMessage {
+  color: var(--muted-foreground);
+  margin: 0;
+}
