@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  background-color: var(--muted);
+  background-color: var(--background);
 }
 
 .content {
@@ -34,8 +34,8 @@
 
 .iconContainer {
   padding: 0.5rem;
-  background-color: rgb(59, 130, 246, 0.1);
-  border-radius: 0.5rem;
+  background-color: rgba(59, 130, 246, 0.08);
+  border-radius: 8px;
 }
 
 .icon {
@@ -88,7 +88,7 @@
 
 .loadingContainer {
   min-height: 100vh;
-  background-color: var(--muted);
+  background-color: var(--background);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,7 +112,7 @@
 
 .errorContainer {
   min-height: 100vh;
-  background-color: var(--muted);
+  background-color: var(--background);
   display: flex;
   align-items: center;
   justify-content: center;
