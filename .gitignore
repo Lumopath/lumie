@@ -1,1 +1,7 @@
 *.log
+.DS_Store
+.idea
+.vscode
+.env*
+*.sqlite3*
+**/tmp/**
