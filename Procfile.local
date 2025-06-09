@@ -1,0 +1,3 @@
+# Next dev server clears the console at startup, the sleeps sidestep that
+api: sleep 1 && cd api && bundle exec rails s -b 0.0.0.0 -p 3001
+web: cd web && yarn run dev -p 3000
