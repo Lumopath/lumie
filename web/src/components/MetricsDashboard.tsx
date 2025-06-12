@@ -1,30 +1,12 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
 import { useMetrics, Metric } from '@/lib/queries';
-import { createSSEConnection } from '@/lib/client';
 import MetricCard from './MetricCard';
 import { Loader2, AlertCircle, BarChart3 } from 'lucide-react';
 import styles from './MetricsDashboard.module.css';
 
 export default function MetricsDashboard() {
-  const queryClient = useQueryClient();
   const { data: metrics = [], isLoading, error } = useMetrics();
-
-  // Set up SSE connection for real-time updates
-  useEffect(() => {
-    const eventSource = createSSEConnection((data) => {
-      // Update the metrics query cache when new data arrives via SSE
-      if (data.type === 'metrics_update') {
-        queryClient.setQueryData(['metrics'], data.metrics);
-      }
-    });
-
-    return () => {
-      eventSource.close();
-    };
-  }, [queryClient]);
 
   if (isLoading) {
     return (
