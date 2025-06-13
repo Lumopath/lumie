@@ -3,7 +3,6 @@
 .idea
 .vscode
 .env*
-*.sqlite3*
 **/tmp/**
 **/cache/**
 .direnv

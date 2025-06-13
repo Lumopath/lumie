@@ -19,7 +19,9 @@ module Types
     end
 
     # Metrics queries
-    field :metrics, [Types::MetricType], null: false, description: "All metrics"
+    field :metrics, [Types::MetricType], null: false, description: "All metrics" do
+      argument :company_name, String, required: true, description: "Company name to filter by"
+    end
     field :metric, Types::MetricType, null: true, description: "Find a metric by ID" do
       argument :id, ID, required: true, description: "ID of the metric"
     end
@@ -27,8 +29,8 @@ module Types
       argument :category, String, required: true, description: "Category to filter by"
     end
 
-    def metrics
-      Metric.recent
+    def metrics(company_name:)
+      Metric.enabled(company_name:)
     end
 
     def metric(id:)

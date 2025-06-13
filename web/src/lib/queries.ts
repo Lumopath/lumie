@@ -3,8 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { graphqlClient } from './client';
 
 export const GET_METRICS = gql`
-  query GetMetrics {
-    metrics {
+  query GetMetrics($companyName: String!) {
+    metrics(companyName: $companyName) {
       id
       name
       value
@@ -44,11 +44,11 @@ export interface Metric {
 }
 
 // React Query hooks
-export const useMetrics = () => {
+export const useMetrics = (companyName: string) => {
   return useQuery({
-    queryKey: ['metrics'],
+    queryKey: ['metrics', companyName],
     queryFn: async () => {
-      const data = await graphqlClient.request(GET_METRICS);
+      const data = await graphqlClient.request(GET_METRICS, { companyName });
       return data.metrics as Metric[];
     },
   });

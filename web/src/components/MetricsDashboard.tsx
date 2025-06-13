@@ -1,12 +1,15 @@
 'use client';
 
+import { useState } from 'react';
 import { useMetrics, Metric } from '@/lib/queries';
 import MetricCard from './MetricCard';
 import { Loader2, AlertCircle, BarChart3 } from 'lucide-react';
 import styles from './MetricsDashboard.module.css';
 
+
 export default function MetricsDashboard() {
-  const { data: metrics = [], isLoading, error } = useMetrics();
+  const [companyName, setCompanyName] = useState("Lumopath");
+  const { data: metrics = [], isLoading, error } = useMetrics(companyName);
 
   if (isLoading) {
     return (
@@ -61,7 +64,7 @@ export default function MetricsDashboard() {
               <BarChart3 className={styles.icon} size={24} />
             </div>
             <h1 className={styles.title}>
-              Business Metrics Dashboard
+              Business Metrics Dashboard for {companyName}
             </h1>
           </div>
           <p className={styles.subtitle}>
