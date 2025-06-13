@@ -49,6 +49,7 @@
             export API_HOST="127.0.0.1:3001"
             export API_PATH="/api/v1"
             export API_SCHEME="http"
+            export NEXT_PUBLIC_GITPOD_WORKSPACE_URL=$GITPOD_WORKSPACE_URL
 
             export GEM_HOME=$data_dir/gem
             export PATH="$PATH:$bin_dir:$GEM_HOME/bin:$web_root/node_modules/.bin"

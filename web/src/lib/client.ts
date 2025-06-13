@@ -2,7 +2,8 @@ import { QueryClient } from '@tanstack/react-query';
 import { GraphQLClient } from 'graphql-request';
 
 // GraphQL client for making requests
-export const graphqlClient = new GraphQLClient('http://localhost:3001/graphql');
+const API_HOST_NAME = process.env.NEXT_PUBLIC_GITPOD_WORKSPACE_URL?.replace("https://", "https://3001-")
+export const graphqlClient = new GraphQLClient(`${API_HOST_NAME}/graphql`);
 
 // React Query client with default options
 export const queryClient = new QueryClient({
@@ -17,7 +18,7 @@ export const queryClient = new QueryClient({
 
 // SSE connection for real-time updates
 export const createSSEConnection = (onMessage: (data: any) => void) => {
-  const eventSource = new EventSource('http://localhost:3001/stream');
+  const eventSource = new EventSource(`${API_HOST_NAME}/stream`);
 
   eventSource.onmessage = (event) => {
     try {

@@ -7,8 +7,5 @@ ports:
   - port: 3000
     onOpen: open-preview
     name: Website
-    description: Website Preview
   - port: 3001
-    onOpen: open-preview
-    name: Website
-    description: Website Preview
+    name: API
