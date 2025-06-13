@@ -9,5 +9,6 @@ ports:
     name: Website
     visibility: public
   - port: 3001
+    onOpen: ignore
     name: API
     visibility: public
