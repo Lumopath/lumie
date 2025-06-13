@@ -1,0 +1,14 @@
+tasks:
+  - name: Setup, Install & Build
+    init: sudo chown -R gitpod:gitpod .git && direnv allow
+
+# Ports to expose on workspace startup
+ports:
+  - port: 3000
+    onOpen: open-preview
+    name: Website
+    description: Website Preview
+  - port: 3001
+    onOpen: open-preview
+    name: Website
+    description: Website Preview
