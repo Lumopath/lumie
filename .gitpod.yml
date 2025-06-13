@@ -7,5 +7,7 @@ ports:
   - port: 3000
     onOpen: open-preview
     name: Website
+    visibility: public
   - port: 3001
     name: API
+    visibility: public
