@@ -187,3 +187,17 @@ class Metric < ApplicationRecord
     end
   end
 end
+
+####
+## Some other company metrics
+
+# Metric.create!(
+#   company_name: "Some Other Company",
+#   name: 'Profit Margin',
+#   value: 10000,
+#   unit: 'USD',
+#   description: "Revenue numbers for Some Other Company.",
+#   category: 'financial',
+#   recorded_at: Time.current,
+#   status: "The status of the metric is Active for June 2025"
+# )

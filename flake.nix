@@ -62,13 +62,15 @@
               export LOCALE_ARCHIVE=$locales
             fi
 
-
             if ! [[ -d $data_dir ]]
             then
+              sudo rm -rf .git/lfs/tmp
+              git lfs fetch
+              git lfs checkout
               mkdir -p $data_dir
               pushd $api_root
               bundle install
-              rake db:setup
+              # rake db:setup
               rake db:migrate
               popd
               pushd $web_root

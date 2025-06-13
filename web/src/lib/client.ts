@@ -2,10 +2,7 @@ import { QueryClient } from '@tanstack/react-query';
 import { GraphQLClient } from 'graphql-request';
 
 // GraphQL client for making requests
-export const graphqlClient = new GraphQLClient('http://localhost:3001/graphql', {
-  credentials: 'include',
-  mode: 'cors',
-});
+export const graphqlClient = new GraphQLClient('http://localhost:3001/graphql');
 
 // React Query client with default options
 export const queryClient = new QueryClient({
