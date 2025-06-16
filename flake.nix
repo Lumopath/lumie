@@ -46,6 +46,8 @@
             bin_dir=$project_root/bin
             storage_dir=$api_root/storage
 
+            export PATH=$PATH:${pkgs.git-lfs}/bin
+
             # Web app config
             export API_HOST="127.0.0.1:3001"
             export API_PATH="/api/v1"
