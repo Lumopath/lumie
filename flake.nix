@@ -33,6 +33,7 @@
             # Other
             libyaml
             pkg-config
+            git-lfs
           ];
 
           shellHook = ''
@@ -51,6 +52,13 @@
             export API_SCHEME="http"
             export NEXT_PUBLIC_GITPOD_WORKSPACE_URL=$GITPOD_WORKSPACE_URL
 
+
+            if [ -z $GITPOD_WORKSPACE_URL ]; then
+              export NEXT_PUBLIC_API_URL="http://127.0.0.1:3001"
+            else
+              export NEXT_PUBLIC_API_URL=$(echo "$GITPOD_WORKSPACE_URL" | tr "https://" "https://3001-")
+            fi
+
             export GEM_HOME=$data_dir/gem
             export PATH="$PATH:$bin_dir:$GEM_HOME/bin:$web_root/node_modules/.bin"
             export BUNDLE_FORCE_RUBY_PLATFORM=true
@@ -66,6 +74,7 @@
             if ! [[ -d $data_dir ]]
             then
               sudo rm -rf .git/lfs/tmp
+              git lfs install --local
               git lfs fetch
               git lfs checkout
               mkdir -p $data_dir
