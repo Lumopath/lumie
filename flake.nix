@@ -52,13 +52,11 @@
             export API_HOST="127.0.0.1:3001"
             export API_PATH="/api/v1"
             export API_SCHEME="http"
-            export NEXT_PUBLIC_GITPOD_WORKSPACE_URL=$GITPOD_WORKSPACE_URL
-
 
             if [ -z $GITPOD_WORKSPACE_URL ]; then
               export NEXT_PUBLIC_API_URL="http://127.0.0.1:3001"
             else
-              export NEXT_PUBLIC_API_URL=$(echo "$GITPOD_WORKSPACE_URL" | tr "https://" "https://3001-")
+              export NEXT_PUBLIC_API_URL=$(echo "$GITPOD_WORKSPACE_URL" | sed -e 's/https:\/\//https:\/\/3001-/')
             fi
 
             export GEM_HOME=$data_dir/gem
